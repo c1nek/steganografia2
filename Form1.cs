@@ -45,6 +45,22 @@ namespace steganografia2
         return sb.ToString();
 
         }
+        private String bit2string(int[] tab)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < tab.Length; i++)
+            {
+                if (tab[i] == 0)
+                {
+                    sb.Append(0);
+                }
+                else
+                {
+                    sb.Append(1);
+                } 
+            }
+            return sb.ToString();
+        }
         private Bitmap hide(Bitmap image, String text)
         {  
             String textBits = string2bin(textBox1.Text);
@@ -137,19 +153,15 @@ namespace steganografia2
             }
             MessageBox.Show("done!");
             pictureBox1.Image = image;
-            Console.WriteLine("____________________");
-            for (int i = 0; i < 1; i++)
-            {
-                for (int j = 0; j < 20; j++)
-                { Console.WriteLine(image.GetPixel(i,j)); }
-            }
+
             return image;
         }
         private String read(Bitmap image)
         {
-            String text = null;
             int[] tab = new int[image.Width*image.Height*3];
             BitArray bitsTab = new BitArray(tab.Length);
+            String bitText;
+            String Text;
 
             int R = 0, G = 0, B = 0;
             int count = 0;
@@ -202,10 +214,24 @@ namespace steganografia2
                 }
             }
 
-            byte[] bytes = new byte[bitsTab.Length];
-            bitsTab.CopyTo(bytes, 0);
+            bitText = bit2string(tab);
 
-                return text;
+
+
+            return Text = binaryToString(bitText);
+        }
+        private String binaryToString(String binary)
+        {
+            byte[] bArr = binarytoBytes(binary);
+            return Encoding.GetEncoding("windows-1250").GetString(bArr);
+        }
+        private byte[] binarytoBytes(string bitString)
+        {
+            return Enumerable.Range(0, bitString.Length / 8).
+                Select(pos => Convert.ToByte(
+                    bitString.Substring(pos * 8, 8),
+                    2)
+                ).ToArray();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -331,6 +357,7 @@ namespace steganografia2
         {
             Bitmap ximage = new Bitmap(xbmpPath);
             String text = read(ximage);
+            textBox4.Text = text;
         }
     }
 }
