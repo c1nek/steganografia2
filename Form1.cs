@@ -66,11 +66,14 @@ namespace steganografia2
             String textBits = string2bin(textBox1.Text);
             int count = 0, k=textBits.Length;
             int R=0,G=0,B=0;
+            progressBar1.Maximum = textBits.Length;
 
             for (int i = 0; i < image.Width; i++)
             {
                 for (int j = 0; j < image.Height; j++)
                 {
+                    progressBar1.Value = count;
+                    progressBar1.Update();
                     if (textBits.Length == count)
                     {
                         break;
@@ -162,12 +165,15 @@ namespace steganografia2
             BitArray bitsTab = new BitArray(tab.Length);
             String bitText;
             String Text;
+            progressBar2.Maximum = image.Width * image.Height * 3;
 
             int R = 0, G = 0, B = 0;
             int count = 0;
 
             for (int i = 0; i < image.Width; i++)
             {
+                progressBar2.Value = count;
+
                 for (int j = 0; j < image.Height; j++)
                 {
                     Color pixel = image.GetPixel(i, j);
@@ -343,7 +349,7 @@ namespace steganografia2
                         textBox3.Text = open.FileName;
                         xbmpPath = open.FileName;
                         Bitmap bit = new Bitmap(open.FileName);
-                        pictureBox1.Image = bit;
+                        pictureBox2.Image = bit;
                     }
                 }
                 catch (Exception ex)
@@ -359,6 +365,8 @@ namespace steganografia2
             String text = read(ximage);
             textBox4.Text = text;
         }
+
+   
     }
 }
 
