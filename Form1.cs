@@ -16,7 +16,7 @@ namespace steganografia2
     {
         String bmpPath;
         Bitmap imageText;
-        String xbmpPatch;
+        String xbmpPath;
         Bitmap ximage;
         public Form1()
         {
@@ -25,7 +25,7 @@ namespace steganografia2
         private String string2bin(String wej)
         {
             byte[] btText;
-            btText = System.Text.Encoding.UTF8.GetBytes(wej); 
+            btText = System.Text.Encoding.ASCII.GetBytes(wej); 
             Array.Reverse(btText); 
             BitArray bit = new BitArray(btText); 
             StringBuilder sb = new StringBuilder(); 
@@ -137,7 +137,75 @@ namespace steganografia2
             }
             MessageBox.Show("done!");
             pictureBox1.Image = image;
+            Console.WriteLine("____________________");
+            for (int i = 0; i < 1; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                { Console.WriteLine(image.GetPixel(i,j)); }
+            }
             return image;
+        }
+        private String read(Bitmap image)
+        {
+            String text = null;
+            int[] tab = new int[image.Width*image.Height*3];
+            BitArray bitsTab = new BitArray(tab.Length);
+
+            int R = 0, G = 0, B = 0;
+            int count = 0;
+
+            for (int i = 0; i < image.Width; i++)
+            {
+                for (int j = 0; j < image.Height; j++)
+                {
+                    Color pixel = image.GetPixel(i, j);
+                    R = pixel.R;
+                    G = pixel.G;
+                    B = pixel.B;
+                    if (R % 2 == 0)
+                    {
+                        tab[count] = 0;
+                    }
+                    if (R % 2 == 1)
+                    {
+                        tab[count] = 1;
+                    }
+                    if (G % 2 == 0)
+                    {
+                        tab[count+1] = 0;
+                    }
+                    if (G % 2 == 1)
+                    {
+                        tab[count+1] = 1;
+                    }
+                    if (B % 2 == 0)
+                    {
+                        tab[count+2] = 0;
+                    }
+                    if (B % 2 == 1)
+                    {
+                        tab[count+2] = 1;
+                    }
+                    count = count + 3;
+                }
+            }
+
+            for (int i = 0; i < tab.Length; i++)
+            {
+                if (tab[i] == 0)
+                {
+                    bitsTab[i] = false;
+                }
+                else
+                {
+                    bitsTab[i] = true;
+                }
+            }
+
+            byte[] bytes = new byte[bitsTab.Length];
+            bitsTab.CopyTo(bytes, 0);
+
+                return text;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -220,6 +288,49 @@ namespace steganografia2
                     MessageBox.Show("Błąd. Nie można odczytać wskazenego pliku! \n " + ex.Message);
                 }
             }
+        }
+
+        private void oProgramieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Steganografia \nMarcin Gluza \n2014 \n\ngumball300@gmail.com", "Autor");
+        }
+
+        private void zakończToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            {
+                try
+                {
+                    OpenFileDialog open = new OpenFileDialog();
+                    open.Filter = "Image Files(*.bmp)| *.bmp";
+                    if (open.ShowDialog() == DialogResult.OK)
+                    {
+                        textBox3.Text = open.FileName;
+                        xbmpPath = open.FileName;
+                        Bitmap bit = new Bitmap(open.FileName);
+                        pictureBox1.Image = bit;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd. Nie można odczytać wskazenego pliku! " + ex.Message + "\n");
+                }
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Bitmap ximage = new Bitmap(xbmpPath);
+            String text = read(ximage);
         }
     }
 }
