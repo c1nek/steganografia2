@@ -1,0 +1,9 @@
+c:\users\marcin\documents\visual studio 2013\Projects\steganografia2\steganografia2\bin\Debug\steganografia2.exe.config
+c:\users\marcin\documents\visual studio 2013\Projects\steganografia2\steganografia2\bin\Debug\steganografia2.exe
+c:\users\marcin\documents\visual studio 2013\Projects\steganografia2\steganografia2\bin\Debug\steganografia2.pdb
+c:\users\marcin\documents\visual studio 2013\Projects\steganografia2\steganografia2\obj\Debug\steganografia2.csprojResolveAssemblyReference.cache
+c:\users\marcin\documents\visual studio 2013\Projects\steganografia2\steganografia2\obj\Debug\steganografia2.Form1.resources
+c:\users\marcin\documents\visual studio 2013\Projects\steganografia2\steganografia2\obj\Debug\steganografia2.Properties.Resources.resources
+c:\users\marcin\documents\visual studio 2013\Projects\steganografia2\steganografia2\obj\Debug\steganografia2.csproj.GenerateResource.Cache
+c:\users\marcin\documents\visual studio 2013\Projects\steganografia2\steganografia2\obj\Debug\steganografia2.exe
+c:\users\marcin\documents\visual studio 2013\Projects\steganografia2\steganografia2\obj\Debug\steganografia2.pdb
